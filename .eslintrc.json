@@ -23,6 +23,10 @@
             "always"
         ],
         "no-undef": "warn",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "indent": [
+            "error",
+            4
+        ]
     }
 }
