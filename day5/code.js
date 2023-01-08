@@ -42,7 +42,7 @@ readline
     })
     .on('close', () => {
         console.log(`The crates ending up on top of each stack with CrateMover 9000 are: ${[...moves].reduce(moveSingleCrates, JSON.parse(JSON.stringify(crates))).reduce((res, col) => (res += col[0]), '')}`);
-        console.log(`The crates ending up on top of each stack are: ${crates.map(col => col[0]).reduce((res, col) => (res+=col), '')}`);
+        console.log(`The crates ending up on top of each stack with CrateMover 9001 are: ${[...moves].reduce(moveMultipleCrates, JSON.parse(JSON.stringify(crates))).reduce((res, col) => (res += col[0]), '')}`);
     });
 
 const moveSingleCrates = (crates, [nb, origin, destination]) => {
@@ -54,4 +54,13 @@ const moveSingleCrates = (crates, [nb, origin, destination]) => {
 
     return crates;
 };
+
+const moveMultipleCrates = (crates, [nb, origin, destination]) => {
+
+    const movingCrates = crates[origin - 1].slice(0, nb);
+
+    crates[origin-1] = crates[origin-1].slice(nb);
+    crates[destination - 1].unshift(...movingCrates);
+
+    return crates;
 };
