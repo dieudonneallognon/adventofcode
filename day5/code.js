@@ -17,27 +17,18 @@ readline
                 .map(el => parseInt(el))
             );
         } else if (line.length > 0) {
-            let pos = 0;
+            line.match(/(\s{3}|\[[A-Z]\]|\s\d\s)\s?/g)
+                .map(el => el.trim().length > 0 ? el.split('')[1] : undefined)
+                .forEach((crate, column) => {
 
-            do {
-                const crate = ((c = line
-                    .substring(pos + 1, pos + 2)
-                    .trim()
-                ).length > 0)
-                    ? c
-                    : undefined;
+                    if (!crates[column]) {
+                        crates.push([]);
+                    }
 
-                const crateColumn = pos / 4;
-
-                if (!crates[crateColumn]) {
-                    crates.push([]);
-                }
-
-                if (crate) {
-                    crates[crateColumn].push(crate);
-                }
-                pos += 4;
-            } while(pos < line.length);
+                    if (crate) {
+                        crates[column].push(crate);
+                    }
+                });
         }
     })
     .on('close', () => {
