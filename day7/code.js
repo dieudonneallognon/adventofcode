@@ -17,7 +17,7 @@ readline
         if (line.startsWith('$')) {
 
             if (line.startsWith('$ cd')) {
-                const [$, cd, dirname] = line.split(' ');
+                const [_, __, dirname] = line.split(' ');
 
                 if (dirname !== '..') {
                     directories.push({
